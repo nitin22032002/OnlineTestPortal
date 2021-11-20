@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/login.css" %}">
+</head>
+<body style="height: 640px">
+<div class="card" style="height: 510px">
+    <div class="heading">
+        User Registration
+    </div>
+    <form action="/register/reg/user" method="post">
+        {% csrf_token %}
+        <div class="input-heading">
+            Institute Name
+        </div>
+        <div>
+            <select style="width: 67%" class="input-tag" name="instituteid" id="institute" required>
+                <option disabled selected value="0">--Select Institute--</option>
+            </select>
+        </div>
+        <div class="input-heading">
+            Batch Code
+        </div>
+        <div>
+            <select   style="width: 67%"  class="input-tag" name="batch" id="batch">
+                <option value="0">--Select Batch--</option>
+            </select>
+        </div>
+        <div class="input-heading">
+            Contact Number
+        </div>
+        <div>
+            <input class="input-tag"id="contact" type="text" name="contact_number" placeholder="Contact Number" pattern="[0-9]{10}" required>
+        </div>
+        <center>
+            <input style="width: 80%;" class="submit-btn" type="submit" id="submitbtn" value="Register User">
+        </center>
+    </form>
+    {% ifnotequal msg "" %}
+        <div class="error-msg">
+            {{ msg }}
+        </div>
+    {% endifnotequal %}
+</div>
+</body>
+{{ timer|json_script:'timer' }}
+<script src="{% static "js/userRegistration.js" %}">
+
+</script>
+
+</html>

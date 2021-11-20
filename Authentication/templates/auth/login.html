@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/login.css" %}">
+</head>
+<body>
+<form action="/authentication/auth/login" method="post">
+    {%csrf_token %}
+    <div class="card">
+        <div class="heading">
+            Login
+        </div>
+        <div class="input-heading">
+            Email Id
+        </div>
+        <div>
+            <input class="input-tag" type="email" name="emailid" placeholder="Email" required>
+        </div>
+        <div class="input-heading">
+            Password
+        </div>
+        <div>
+                <input class="input-tag" type="password" name="password" placeholder="Password" required>
+        </div>
+    <center >
+    <input class="submit-btn" type="submit" value="Login">
+    </center>
+        <div >
+    <a class="signup-link" href="/authentication/signup">If You Don't Have Account ? Signup</a>
+    </div>
+    {% ifnotequal msg ""%}
+        <div class="error-msg">
+        {{ msg }}
+        </div>
+    {% endifnotequal %}
+    </div>
+</form>
+</body>
+</html>

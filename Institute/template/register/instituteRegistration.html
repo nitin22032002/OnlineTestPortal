@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Institute Registration</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/login.css" %}">
+</head>
+<body style="height: 640px">
+<div class="card" style="height: 620px">
+    <div class="heading">
+        Institute Registration
+    </div>
+    <form action="/register/reg/institute" method="post">
+        {% csrf_token %}
+        <div class="input-heading">
+            Institute Name
+        </div>
+        <div>
+            <input type="text" name="name" class="input-tag" placeholder="Institute Name" required>
+        </div>
+        <div class="input-heading">
+            Address
+        </div>
+        <div>
+            <input type="text" class="input-tag" name="address" placeholder="Address" required>
+        </div>
+        <div class="input-heading">
+            Contact Number
+        </div>
+        <div>
+            <input class="input-tag" type="text" name="contact_number" placeholder="Contact Number" pattern="[0-9]{10}" required>
+        </div>
+        <div class="input-heading">
+            Institute Code
+        </div>
+        <div>
+            <input class="input-tag" type="text" name="institute_code" placeholder="Institute Code" required>
+        </div>
+        <center>
+            <input style="width: 80%;" class="submit-btn" type="submit" value="Register Institute">
+        </center>
+    </form>
+    {% ifnotequal msg "" %}
+        <div class="error-msg">
+            {{ msg }}
+        </div>
+    {% endifnotequal %}
+</div>
+</body>
+</html>

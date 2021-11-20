@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Batch</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/login.css" %}">
+</head>
+<body>
+    <div class="card">
+        <div class="heading">
+            Add Batch
+        </div>
+    <form action="/register/reg/batch" method="post">
+{% csrf_token %}
+        <div class="input-heading">
+            Batch Code
+        </div>
+        <div>
+            <input class="input-tag" type="text" name="batchcode" placeholder="Batch Code" required>
+        </div>
+        <div class="input-heading">
+            Batch Name
+        </div>
+        <div>
+            <input class="input-tag" type="text" name="batchname" placeholder="Batch Name" required>
+        </div>
+        <center>
+            <input type="submit" value="Add Batch" class="submit-btn">
+        </center>
+        {% ifnotequal msg "" %}
+            <div class="error-msg">
+            {{ msg }}
+            </div>
+        {% endifnotequal %}
+    </form>
+    </div>
+</body>
+</html>

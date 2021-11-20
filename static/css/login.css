@@ -1,0 +1,56 @@
+body{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height:500px;
+
+}
+.card{
+    border: 1px solid black;
+    width: 480px;
+    height: 410px;
+    border-radius: 20px;
+    background-color:rgba(162, 155, 254,0.5);
+
+}
+.heading{
+    text-align: center;
+    margin:10px;
+    font-size: 40px;
+    letter-spacing: 2px;
+    text-transform: capitalize;
+}
+.input-heading{
+    margin: 10px;
+    font-size: 30px;
+    letter-spacing: 2px;
+    text-transform: capitalize;
+}
+.input-tag{
+    margin: 10px;
+    font-size: 25px;
+}
+.submit-btn{
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+    width: 40%;
+    font-size: 20px;
+    letter-spacing: 2px;
+    background-color: whitesmoke;
+}
+.submit-btn:hover{
+    background-color: silver;
+}
+.signup-link{
+    margin: 10px;
+    text-decoration: none;
+    padding: 10px;
+}
+.error-msg{
+    margin: 10px;
+    color:red;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
