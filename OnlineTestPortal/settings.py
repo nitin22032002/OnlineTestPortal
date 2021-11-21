@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-2y95+ki%%_@p1$1*iz7f1%-!mdfj3o35tjdyalbu30(z8@z-6s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Authentication',
-    "Institute"
+    "Institute",
+    "Test",
 ]
 
 MIDDLEWARE = [
@@ -121,6 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS=[os.path.join(BASE_DIR,"static"),]
 
 STATIC_ROOT=os.path.join(BASE_DIR,"static")

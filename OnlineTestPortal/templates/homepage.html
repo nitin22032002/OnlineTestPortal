@@ -22,5 +22,30 @@
         <a href="/authentication/login/">Login</a>
     {% endif %}
 </div>
+{% ifequal request.session.user.status True %}
+            <div class="institute-details">
+                <h1>{{ institute_name }} ({{ institute_code }})</h1>
+                <h2>{{ institute_address }} (tel:{{ institute_contact }})</h2>
+            <hr>
+            </div>
+
+        {% endifequal %}
+{% if request.session.user %}
+{% ifequal request.session.user.status True %}
+            <div class="other-links">
+                <a href="/requests/">Requests</a>
+                <a>Upload Test</a>
+        {% endifequal %}
+            <select id="institute-join">
+                    <option selected disabled value="0">--Select Institute--</option>
+                </select>
+                <select id="Batch-join">
+                    <option selected disabled value="0">--Select Batch--</option>
+                </select>
+                <a >Search Status</a>
+            </div>
+            <hr>
+    <script src="/static/js/homepage.js"></script>
+{% endif %}
 </body>
 </html>

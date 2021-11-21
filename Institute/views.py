@@ -94,6 +94,40 @@ class Register_User(View):
             print(e)
             return JsonResponse({"data": []})
 
+    @credential
+    def getInstituteUser(self,request):
+        try:
+            userid= request.session['user']['id']
+            users=User.objects.filter(admin_id=userid)
+            d=set()
+            for item in users:
+                d.add(item.institute_id)
+            res = []
+            for item in d:
+                item=Institute.objects.get(id=item)
+                res.append({"id": item.id, "name": item.name, "code": item.institute_code})
+            return JsonResponse({"data": res})
+        except Exception as e:
+            print(e)
+            return JsonResponse({"data":[]})
+
+    @credential
+    def getBatchUser(self, request):
+        try:
+            userid = request.session['user']['id']
+            id=request.GET['id']
+            users = User.objects.filter(admin_id=userid,institute_id=id)
+            d = set()
+            for item in users:
+                d.add(item.batch_code)
+            res = []
+            for item in d:
+                item = Batches.objects.get(batch_code=item)
+                res.append({"name": item.batch_name, "code": item.batch_code})
+            return JsonResponse({"data": res})
+        except Exception as e:
+            print(e)
+            return JsonResponse({"data": []})
 class Batch(View):
     key={"msg":""}
     @credential

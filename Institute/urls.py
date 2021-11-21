@@ -9,4 +9,6 @@ urlpatterns=[
     path("reg/batch",Batch.as_view()),
     path("fetch/allinstitute/",Register_User().getAllInstitute),
     path("fetch/allbatch/",Register_User().getAllBatch),
+    path("fetch/allinstitute/user/",Register_User().getInstituteUser),
+    path("fetch/allbatch/user/",Register_User().getBatchUser),
 ]
