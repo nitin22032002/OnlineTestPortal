@@ -1,10 +1,9 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>User Registration</title>
-    <link rel="stylesheet" type="text/css" href="{% static "css/login.css" %}">
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
 </head>
 <body style="height: 640px">
 <div class="card" style="height: 510px">
@@ -47,7 +46,7 @@
 </div>
 </body>
 {{ timer|json_script:'timer' }}
-<script src="{% static "js/userRegistration.js" %}">
+<script src="/static/js/userRegistration.js">
 
 </script>
 
