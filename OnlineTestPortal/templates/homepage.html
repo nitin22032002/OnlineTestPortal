@@ -22,6 +22,7 @@
         <a href="/authentication/login/">Login</a>
     {% endif %}
 </div>
+{% block content %}
 {% ifequal request.session.user.status True %}
             <div class="institute-details">
                 <h1>{{ institute_name }} ({{ institute_code }})</h1>
@@ -48,4 +49,5 @@
     <script src="/static/js/homepage.js"></script>
 {% endif %}
 </body>
+{% endblock %}
 </html>

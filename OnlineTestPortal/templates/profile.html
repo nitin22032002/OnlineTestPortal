@@ -1,0 +1,34 @@
+{% extends "./homepage.html" %}
+<!DOCTYPE html>
+<html lang="en">
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+<div class="main">
+
+<div class="card">
+    <div class="heading">
+        Profile
+    </div>
+    <div class="input-heading">
+        Username : {{ username }}
+    </div>
+<div class="input-heading">
+    Email Id :  {{ emailid }}
+</div>
+<div class="input-heading">
+    Institute Register (any) : {% if status %}
+        YES
+        {% else %}
+        NO
+    {% endif %}
+</div>
+
+</div>
+</div>
+{% endblock %}
+</body>
+</html>

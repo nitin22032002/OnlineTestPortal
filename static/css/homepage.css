@@ -23,3 +23,32 @@
     text-transform: uppercase;
     letter-spacing: 2px;
 }
+.card{
+    border: 1px solid black;
+    width: 500px;
+    height: 310px;
+    border-radius: 20px;
+    background-color:rgba(162, 155, 254,0.5);
+
+}
+.heading{
+    text-align: center;
+    margin:10px;
+    margin-bottom: 20px;
+    font-size: 40px;
+    letter-spacing: 2px;
+    text-transform: capitalize;
+}
+.input-heading{
+    margin: 10px;
+    margin-bottom: 30px;
+    font-size: 30px;
+    letter-spacing: 2px;
+    text-transform: capitalize;
+}
+.main{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 50px;
+}

@@ -7,7 +7,12 @@ def credential(func):
             return func(self,request)
         return redirect("/authentication/login/")
     return cred
-
+def credential_func(func):
+    def cred(request):
+        if(request.session.get('user',False)):
+            return func(request)
+        return redirect("/authentication/login/")
+    return cred
 def homePage(request):
     try:
         content={}
@@ -25,3 +30,19 @@ def getInstituteDetails(request,content):
         content.update({"institute_name":institute.name,"institute_contact":institute.contact_number,"institute_address":institute.address,"institute_code":institute.institute_code})
     except Exception as e:
         print(e)
+
+@credential_func
+def profile(request):
+    try:
+        user=request.session['user']
+        return render(request,"profile.html",user)
+    except Exception as e:
+        print(e)
+        return redirect("/")
+
+def about(request):
+    try:
+        return render(request,"about.html")
+    except Exception as e:
+        print(e)
+        return redirect("/")
