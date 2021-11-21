@@ -39,7 +39,7 @@ class Register_Institute(View):
             self.key['msg']="Server Error......"
             return redirect("/register/institute/")
 class Register_User(View):
-    key={"msg":""}
+    key={"msg":"","timer":0}
     @credential
     def get(self,request):
         msg=self.key.copy()
