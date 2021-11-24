@@ -8,4 +8,5 @@ urlpatterns = [
     path("",homePage),
     path("profile/",profile),
     path("about/",about),
+    path("test/",include("Test.urls")),
 ]

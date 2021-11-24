@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Request's</title>
+</head>
+<body>
+<div class="main">
+    <table border="1" cellpadding="2" cellspacing="1">
+        <caption><h1>Paper's</h1></caption>
+    <tr>
+        <td>User Id</td>
+        <td>Name</td>
+        <td>Batch Code</td>
+        <td>Contact Number</td>
+        <td>Verify Status</td>
+        <td>Action</td>
+    </tr>
+        {% for request in requests %}
+        <tr>
+        <td>
+            {{ request.id }}
+        </td>
+        <td>
+            {{ request.admin_id }}
+        </td>
+        <td>
+            {{ request.batch_code }}
+        </td>
+        <td>
+            {{ request.contact_number }}
+        </td>
+        <td>
+           {% if request.status %}
+               <a href="/register/verify/user/?id={{ request.id }}">UnVerify</a>
+               {% else %}
+               <a href="/register/verify/user/?id={{ request.id }}">Verify</a>
+            {% endif %}
+        </td>
+        <td>
+            <a href="/register/delete/user?id={{ request.id }}">DELETE</a>
+        </td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+</body>
+</html>

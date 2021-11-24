@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Paper</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+</head>
+<body style="height: 700px">
+{% csrf_token %}
+    <div class="card" style="height: 700px;">
+<div class="main" >
+        <div class="heading">
+            Upload Paper
+        </div>
+        <div class="input-heading">
+            Paper Name
+        </div>
+        <div>
+            <input type="text" class="input-tag" id="papername" placeholder="Name">
+        </div>
+         <div class="input-heading">
+           Number Of Question's
+        </div>
+        <div>
+            <input type="number" class="input-tag" id="number" placeholder="Number Of Question's">
+        </div>
+         <div class="input-heading">
+            Total Marks
+        </div>
+        <div>
+            <input type="number" class="input-tag" id="marks" placeholder="Total Marks">
+        </div>
+         <div class="input-heading">
+            Start Date and Time
+        </div>
+        <div>
+            <input type="datetime-local" class="input-tag" id="time" placeholder="Date Start">
+        </div>
+         <div class="input-heading">
+            Batch
+        </div>
+        <div>
+           <select id="batch" style="width: 67%" class="input-tag"  title="batch">
+               <option selected disabled value="0">--Select Batch--</option>
+               {% for batch in batches %}
+               <option value="{{ batch.batch_code }}">{{ batch.batch_name }}({{ batch.batch_code }})</option>
+               {% endfor %}
+           </select>
+        </div>
+        <center>
+            <input type="button" value="Next" class="submit-btn">
+        </center>
+
+</div>
+        {% ifnotequal msg "" %}
+            <div class="error-msg">
+            {{ msg }}
+            </div>
+        {% endifnotequal %}
+    </div>
+</body>
+<script src="/static/js/addpaper.js"></script>
+</html>

@@ -11,4 +11,7 @@ urlpatterns=[
     path("fetch/allbatch/",Register_User().getAllBatch),
     path("fetch/allinstitute/user/",Register_User().getInstituteUser),
     path("fetch/allbatch/user/",Register_User().getBatchUser),
+    path("requests/",Register_User().RequestUser),
+    path("verify/user/",Register_User().verifyUser),
+    path("delete/user/",Register_User().DeleteUser),
 ]

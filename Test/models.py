@@ -15,6 +15,7 @@ class Question(models.Model):
     marks=models.IntegerField()
     time=models.TimeField()
     question=models.TextField(max_length=10000)
+    answere=models.CharField(default="",max_length=100)
     option_a=models.CharField(max_length=100)
     option_b=models.CharField(max_length=100)
     option_c=models.CharField(max_length=100)

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Paper's</title>
+</head>
+<body>
+<div class="main">
+    <table border="1" cellpadding="2" cellspacing="1">
+        <caption><h1>Paper's</h1></caption>
+    <tr>
+        <td>Paper Id</td>
+        <td>Paper Name</td>
+        <td>Batch Code</td>
+        <td>Number Of Question's</td>
+        <td>Date Start</td>
+        <td>Maximum Marks</td>
+        <td>Action</td>
+    </tr>
+        {% for paper in papers %}
+        <tr>
+        <td>
+            {{ paper.id }}
+        </td>
+        <td>
+            {{ paper.name }}
+        </td>
+        <td>
+            {{ paper.batch_code }}
+        </td>
+        <td>
+            {{ paper.number_question }}
+        </td>
+        <td>
+            {{ paper.test_start }}
+        </td>
+        <td>
+            {{ paper.total_marks }}
+        </td>
+        <td>
+            <a href="/test/delete/paper?id={{ paper.id }}">DELETE</a>
+        </td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+</body>
+</html>

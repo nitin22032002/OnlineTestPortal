@@ -58,7 +58,7 @@ ROOT_URLCONF = 'OnlineTestPortal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"/Authentication/templates/"),str(BASE_DIR)+"/Institute/template/",str(BASE_DIR)+"/OnlineTestPortal/templates/"],
+        'DIRS': [os.path.join(BASE_DIR,"/Authentication/templates/"),str(BASE_DIR)+"/Institute/template/",str(BASE_DIR)+"/OnlineTestPortal/templates/",str(BASE_DIR)+"/Test/template/"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

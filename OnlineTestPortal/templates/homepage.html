@@ -34,8 +34,9 @@
 {% if request.session.user %}
 {% ifequal request.session.user.status True %}
             <div class="other-links">
-                <a href="/requests/">Requests</a>
-                <a>Upload Test</a>
+                <a href="/register/requests/">Requests</a>
+                <a href="/test/paper/">Upload Test</a>
+                <a href="/test/view/papers/">View Test's</a>
         {% endifequal %}
             <select id="institute-join">
                     <option selected disabled value="0">--Select Institute--</option>

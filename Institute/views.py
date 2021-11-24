@@ -41,6 +41,42 @@ class Register_Institute(View):
 class Register_User(View):
     key={"msg":"","timer":0}
     @credential
+    def RequestUser(self,request):
+        try:
+            if(request.session['user']['status']):
+                users=User.objects.filter(institute_id=Institute.objects.get(admin_id=request.session['user']['id']).id)
+                for user in users:
+
+                    user.admin_id=User_website.objects.get(id=user.admin_id).user_name
+                return render(request,"register/requests.html",{"requests":users})
+            raise Exception("Invalid User")
+        except Exception as e:
+            print(e)
+            return HttpResponse(f"Server Error......{e}")
+    @credential
+    def DeleteUser(self,request):
+        try:
+            if (request.session['user']['status']):
+                user=User.objects.get(id=request.GET['id'])
+                user.delete()
+                return redirect("/register/requests/")
+            raise Exception("Invalid User")
+        except Exception as e:
+            print(e)
+            return HttpResponse(f"Server Error......{e}")
+    @credential
+    def verifyUser(self,request):
+        try:
+            if (request.session['user']['status']):
+                user=User.objects.get(id=request.GET['id'])
+                user.status=not user.status
+                user.save()
+                return redirect("/register/requests/")
+            raise Exception("Invalid User")
+        except Exception as e:
+            print(e)
+            return HttpResponse(f"Server Error......{e}")
+    @credential
     def get(self,request):
         msg=self.key.copy()
         self.key['msg']=""
