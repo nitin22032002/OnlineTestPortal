@@ -24,17 +24,18 @@
         <div>
             <input type="number" class="input-tag" id="number" placeholder="Number Of Question's">
         </div>
-         <div class="input-heading">
-            Total Marks
-        </div>
-        <div>
-            <input type="number" class="input-tag" id="marks" placeholder="Total Marks">
-        </div>
+
          <div class="input-heading">
             Start Date and Time
         </div>
         <div>
-            <input type="datetime-local" class="input-tag" id="time" placeholder="Date Start">
+            <input type="datetime-local"  class="input-tag" id="time" placeholder="Date Start">
+        </div>
+<div class="input-heading">
+            End Date and Time
+        </div>
+        <div>
+            <input type="datetime-local"  class="input-tag" id="endtime" placeholder="Date End">
         </div>
          <div class="input-heading">
             Batch
@@ -52,11 +53,11 @@
         </center>
 
 </div>
-        {% ifnotequal msg "" %}
+
             <div class="error-msg">
-            {{ msg }}
+
             </div>
-        {% endifnotequal %}
+
     </div>
 </body>
 <script src="/static/js/addpaper.js"></script>

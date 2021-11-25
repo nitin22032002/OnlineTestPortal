@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Batch's</title>
+</head>
+<body>
+<div class="main">
+    <table border="1" cellspacing="2" cellpadding="2">
+        <caption><h1>Batch's</h1></caption>
+        <tr>
+            <td>Batch Code</td>
+            <td>Batch Name</td>
+            <td>Total Register Student's</td>
+            <td>Action</td>
+        </tr>
+        {% for batch in batches %}
+            <tr>
+            <td>{{ batch.batch_code }}</td>
+            <td>{{ batch.batch_name }}</td>
+            <td>{{ batch.institute_id }}</td>
+            <td><a href="/register/delete/batch/?id={{ batch.batch_code }}">DELETE</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>

@@ -1,6 +1,10 @@
 let paper_question=new FormData()
 let i=1;
 let total_que=0;
+let d_date=new Date().toISOString()
+d_date=d_date.slice(0,d_date.lastIndexOf(":"))
+document.querySelector("#time").setAttribute("min",d_date)
+document.querySelector("#endtime").setAttribute("min",d_date)
 function appendactionBtn(func) {
     let nextBtn = document.querySelector(".submit-btn")
     nextBtn.addEventListener("click", func)
@@ -9,14 +13,14 @@ function handlePaper(e){
     let papername=document.querySelector("#papername").value
     let number=document.querySelector("#number").value
     total_que=number
-    let marks=document.querySelector("#marks").value
-    let startdate=document.querySelector("#time").value
+    let startdate=String(document.querySelector("#time").value)
+    let enddate=String(document.querySelector("#endtime").value)
     let batch=document.querySelector("#batch").value
     paper_question.append("papername",papername)
     paper_question.append("papernumber",number)
-    paper_question.append("papermarks",marks)
     paper_question.append("batch",batch)
     paper_question.append("startdate",startdate)
+    paper_question.append("enddate",enddate)
     uploadQuestion()
 }
 function uploadQuestion(){
@@ -29,9 +33,8 @@ function uploadQuestion(){
 <div class="input-heading">Question Type</div>
         <div>
         <select id="question-type" style="width: 67%" class="input-tag"  title="Question Type" >
-               <option selected disabled value="0">--Select Question Type--</option>
-               <option value="1">Picture</option>
                <option value="2">Text</option>
+               <option value="1">Picture</option>
          </select>
 </div>
 <div class="input-heading">
@@ -44,7 +47,7 @@ function uploadQuestion(){
             Duration
         </div>
         <div>
-            <input type="time" class="input-tag" id="time" placeholder="Date Start">
+            <input type="time" value="00:00" min="00:01" max="00:05" class="input-tag" id="time" placeholder="Date Start">
         </div>
         <div class="input-heading">
             Question
@@ -77,6 +80,7 @@ function uploadQuestion(){
     main.innerHTML=s;
     document.querySelector('#question-type').addEventListener("change",handleType)
     appendactionBtn(addQuestions)
+
 }
 
 function handleType(e){
@@ -128,7 +132,7 @@ async function addQuestions(){
     else{
         document.querySelector(".error-msg").innerHTML=`Server Error.....${res.error}`
             setTimeout(()=>{
-                 location.href="/test/papers/"
+                 location.href="/test/paper/"
             },5000)
         }
     }

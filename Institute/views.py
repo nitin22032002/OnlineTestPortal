@@ -30,7 +30,9 @@ class Register_Institute(View):
                 user=User_website.objects.get(id=user_id)
                 user.institute_status=True
                 user.save()
-                request.session['user']['status']=True
+                user = request.session['user']
+                user['status'] =True
+                request.session['user'] = user
                 return redirect("/")
             self.key['msg']="This Institute Already Register"
             return redirect("/register/institute/")
@@ -38,6 +40,22 @@ class Register_Institute(View):
             print(e)
             self.key['msg']="Server Error......"
             return redirect("/register/institute/")
+    @credential
+    def deleteInstitute(self,request):
+        try:
+            if(request.session['user']['status']):
+                Institute.objects.get(admin_id=request.session['user']['id']).delete()
+                user=User_website.objects.get(id=request.session['user']['id'])
+                user.institute_status=False
+                user.save()
+                user=request.session['user']
+                user['status']=False
+                request.session['user']=user
+                return redirect("/")
+            return HttpResponse("Invalid User")
+        except Exception as e:
+            print(e)
+            return redirect("/")
 class Register_User(View):
     key={"msg":"","timer":0}
     @credential
@@ -193,3 +211,30 @@ class Batch(View):
             print(e)
             self.key['msg']="Server Error...."
             return redirect("/register/batch/")
+
+    @credential
+    def viewBatch(self,request):
+        try:
+            if(request.session['user']['status']):
+                id=Institute.objects.get(admin_id=request.session['user']['id']).id
+                batches=Batches.objects.filter(institute_id=id).all()
+                for batch in batches:
+                    batch.institute_id=User.objects.filter(institute_id=id,batch_code=batch.batch_code).count()
+                return render(request,"register/viewbatch.html",{"batches":batches})
+            return HttpResponse("Invalid User")
+        except Exception as e:
+            print(e)
+            return HttpResponse(f"Server Error......{e}")
+
+    @credential
+    def deleteBatch(self, request):
+        try:
+            if (request.session['user']['status']):
+                batch=Batches.objects.filter(batch_code=request.GET['id'])
+                if(len(batch)>0):
+                    batch[0].delete()
+                return redirect("/register/view/batchs/")
+            return HttpResponse("Invalid User")
+        except Exception as e:
+            print(e)
+            return HttpResponse(f"Server Error......{e}")

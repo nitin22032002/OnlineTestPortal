@@ -14,4 +14,7 @@ urlpatterns=[
     path("requests/",Register_User().RequestUser),
     path("verify/user/",Register_User().verifyUser),
     path("delete/user/",Register_User().DeleteUser),
+    path("removeinstitute/",Register_Institute().deleteInstitute),
+    path("view/batchs/",Batch().viewBatch),
+    path("delete/batch/",Batch().deleteBatch),
 ]

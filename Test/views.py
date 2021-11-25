@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
-from .models import Paper,Question,AnswereKey,Result
-from Institute.models import Institute,Batches
+from .models import Paper,Question,Result
+from Institute.models import Institute,Batches,User
 from OnlineTestPortal.views import credential,credential_func
 from OnlineTestPortal.settings import BASE_DIR
 from django.views import View
@@ -32,10 +32,12 @@ class paper(View):
             paperobj=Paper()
             paperobj.name=data['papername']
             paperobj.batch_code=data['batch']
-            paperobj.test_start=datetime.datetime.fromisoformat(data['startdate'])
+            paperobj.test_start=data['startdate']
+            paperobj.test_end=data['enddate']
             paperobj.number_question=data['papernumber']
             paperobj.institute_id=request.session['instituteid']
-            paperobj.total_marks=data['papermarks']
+            total=0
+            paperobj.total_marks=0
             paperobj.save()
             for i in range(1,int(paperobj.number_question)+1):
                 que=Question()
@@ -48,6 +50,8 @@ class paper(View):
                 que.option_d=data[f"optiond{i}"]
                 que.answere=data[f'answere{i}']
                 que.marks=data[f'marks{i}']
+
+                total+=int(que.marks)
                 if((que.question_type)=="1"):
                     que.question=f"question{i}{paperobj.id}{paperobj.institute_id}"
                     status=uploadFile(que.question,file[f'question{i}'])
@@ -56,7 +60,10 @@ class paper(View):
                         return JsonResponse({"status":False,"error":f"Question {i} Failed To Upload"})
                 else:
                     que.question=data[f"question{i}"]
+
                 que.save()
+            paperobj.total_marks=total
+            paperobj.save()
             return JsonResponse({"status": True})
         except Exception as e:
             print(e)
@@ -91,10 +98,27 @@ def deletePapers(request):
         if(request.session.get('instituteid',False) and request.session['user']['status']):
             id=request.GET['id']
             Paper.objects.get(id=id).delete()
-            questions=Question.objects.filter(paper_id=id)
-            for que in questions:
-                que.delete()
         return redirect("/test/view/papers/")
     except Exception as e:
         print(e)
         return HttpResponse(f"Server Error......{e}")
+
+@credential_func
+def userPaper(request):
+    try:
+        i_id=request.GET['i_id']
+        b_id=request.GET['b_id']
+        user=User.objects.filter(institute_id=i_id,batch_code=b_id)
+        if(len(user)==0):
+            raise Exception("Invalid User")
+        elif(not user[0].status):
+            return JsonResponse({"status":True,"user_status":False})
+        else:
+            papers=Paper.objects.filter(institute_id=i_id,batch_code=b_id).all()
+            content=[]
+            for paper in papers:
+                content.append({"id":paper.id,"end":paper.test_end,"name":paper.name,"marks":paper.total_marks,"number":paper.number_question,"start":paper.test_start})
+            return JsonResponse({"status":True,"user_status":True,"paper":content})
+    except Exception as e:
+        print(e)
+        return JsonResponse({"status":False})

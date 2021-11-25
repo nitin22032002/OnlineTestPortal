@@ -14,6 +14,8 @@
         <a href="/register/user/">Join Batch</a>
         {% ifequal request.session.user.status True %}
             <a href="/register/batch/">Add Batch</a>
+            <a href="/register/view/batchs/">View Batch's</a>
+            <a href="/register/removeinstitute/">Remove Institute</a>
             {% else %}
             <a href="/register/institute/">Register Institution</a>
         {% endifequal %}
@@ -32,8 +34,8 @@
 
         {% endifequal %}
 {% if request.session.user %}
-{% ifequal request.session.user.status True %}
             <div class="other-links">
+{% ifequal request.session.user.status True %}
                 <a href="/register/requests/">Requests</a>
                 <a href="/test/paper/">Upload Test</a>
                 <a href="/test/view/papers/">View Test's</a>
@@ -44,10 +46,18 @@
                 <select id="Batch-join">
                     <option selected disabled value="0">--Select Batch--</option>
                 </select>
-                <a >Search Status</a>
+                <a id="search-status" >Search Status</a>
             </div>
             <hr>
+    <div class="main-content">
+        <table border="1" cellspacing="5" cellpadding="5">
+            <tbody id="table-body">
+
+            </tbody>
+        </table>
+    </div>
     <script src="/static/js/homepage.js"></script>
+    <script src="/static/js/mainContent.js"></script>
 {% endif %}
 </body>
 {% endblock %}
