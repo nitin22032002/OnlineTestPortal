@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test-Start</title>
+</head>
+<body>
+{% csrf_token %}
+    <div style="display: flex;justify-content: center;align-items: center;margin: 20px;">
+        <div style="border: 1px solid black">
+            <div >Timer : <span id="timer"></span></div>
+            <div id="question"></div>
+            <div style="display: flex;flex-direction: row;flex-wrap: wrap;width: 60%">
+                <span>A</span><input type="radio" name="ans" class="option"><span id="option1"></span>
+                <span>B</span><input type="radio" name="ans" class="option"><span id="option2"></span>
+                <span>C</span><input type="radio" name="ans" class="option"><span id="option3"></span>
+                <span>D</span><input type="radio" name="ans" class="option"><span id="option4"></span>
+            </div>
+            <input type="button" value="Next" id="next-btn">
+        </div>
+    </div>
+</body>
+{{ id|json_script:"paperid" }}
+<script src="/static/js/testarea.js"></script>
+</html>

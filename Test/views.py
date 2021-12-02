@@ -6,6 +6,8 @@ from OnlineTestPortal.views import credential,credential_func
 from OnlineTestPortal.settings import BASE_DIR
 from django.views import View
 import datetime
+import json
+import random
 class paper(View):
     key={"msg":""}
     @credential
@@ -117,8 +119,59 @@ def userPaper(request):
             papers=Paper.objects.filter(institute_id=i_id,batch_code=b_id).all()
             content=[]
             for paper in papers:
-                content.append({"id":paper.id,"end":paper.test_end,"name":paper.name,"marks":paper.total_marks,"number":paper.number_question,"start":paper.test_start})
+                status=Result.objects.filter(paper_id=paper.id,user_id=user[0].id)
+                if(len(status)>0):
+                    status=True
+                else:
+                    status=False
+                content.append({"status":status,"id":paper.id,"end":paper.test_end,"name":paper.name,"marks":paper.total_marks,"number":paper.number_question,"start":paper.test_start})
             return JsonResponse({"status":True,"user_status":True,"paper":content})
     except Exception as e:
         print(e)
         return JsonResponse({"status":False})
+@credential_func
+def TestPaper(request):
+    try:
+        return render(request,"testplace.html",{"id":request.GET['id']})
+    except Exception as e:
+        print(e)
+        return HttpResponse("Server Error......")
+@credential_func
+def fetchQuestion(request):
+    try:
+        que=Question.objects.filter(paper_id=request.GET['id'])
+        content=[]
+        n=len(que)
+        for question in que:
+            question.time=int(question.time.minute)*60
+            content.append({"questionid":question.id,"questiontype":question.question_type,"marks":question.marks,"time":question.time,"question":question.question,"optiona":question.option_a,"optionb":question.option_b,"optionc":question.option_c,"optiond":question.option_d})
+        que_list=list(range(0,n))
+        random.shuffle(que_list)
+        return JsonResponse({"status":True,"que":content,"quelist":que_list})
+    except Exception as e:
+        print(e)
+        return JsonResponse({"status":False})
+
+@credential_func
+def submission(request):
+    try:
+        data=json.load(request)
+        ans=data['ans']
+        content=[]
+        score=0
+        for id in ans:
+            que=Question.objects.get(id=int(id))
+            l={"question":que.question,"type":que.question_type,"ans":que.answere,"mark":ans[id]}
+            content.append(l)
+            if(l['ans']==l['mark']):
+                score+=int(que.marks)
+            elif(l['mark']!='notanswere'):
+                score-=1
+        request.session['result']={"que":content,"score":score}
+        return JsonResponse({"status": True})
+    except Exception as e:
+        print(e)
+        return JsonResponse({"status":False})
+
+def testResultDiscription(request):
+    pass
