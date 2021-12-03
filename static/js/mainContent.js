@@ -30,7 +30,7 @@ async function handleClick(e){
 <td>${data.start}</td>
 <td>${data.end}</td>
 <td>
-${new Date(data.start)<=new Date() && new Date()<=new Date(data.end)?`<a href="/test/start/test?id=${data.id}">Start Test</a>`:new Date(data.start)>new Date()?"Test Not Start Yet":data.status?`<a href="/test/result/user/?id=${data.id}">Result</a>`:"<a style='color: red;text-decoration: none'>Test Missed</a>"}
+${new Date(data.start)<=new Date() && new Date()<=new Date(data.end) && !data.status?`<a href="/test/start/test?id=${data.id}">Start Test</a>`:new Date(data.start)>new Date() && !data.status?"Test Not Start Yet":data.status?`<a href="/test/result/user/?id=${data.id}">Result</a>`:"<a style='color: red;text-decoration: none'>Test Missed</a>"}
 </td>
 </tr>`
                 })

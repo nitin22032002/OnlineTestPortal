@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import paper,viewPapers,deletePapers,userPaper,TestPaper,fetchQuestion,submission
+from .views import paper,viewPapers,deletePapers,userPaper,TestPaper,fetchQuestion,submission,testResultDiscription,userResult
 urlpatterns=[
     path('paper/',paper.as_view()),
     path('add/paper',paper.as_view()),
@@ -9,4 +9,6 @@ urlpatterns=[
     path('start/test/',TestPaper),
     path('test/fetchquestion/',fetchQuestion),
     path('submission',submission),
+    path('test/result/',testResultDiscription),
+    path('result/user/',userResult),
 ]

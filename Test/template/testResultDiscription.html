@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Discription</title>
+</head>
+<body>
+<center>
+    <table border="1" cellpadding="5" cellspacing="5">
+        <caption>Test Discription</caption>
+        <tr>
+            <td>Question</td>
+            <td>Answere</td>
+            <td>Your Response</td>
+
+        </tr>
+        {% for data in que %}
+            <tr>
+            <td>
+            {% ifequal data.type 2 %}
+                {{ data.question }}
+                {% else %}
+               <img src="/static/files/{{ data.question }}.jpg">
+            {% endifequal %}
+            </td>
+            <td>{{ data.ans }}</td>
+            <td>{{ data.mark }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+<table border="1" cellpadding="5" cellspacing="5">
+    <tr>
+        <td>Score</td>
+        <td>{{ score }}</td>
+    </tr>
+    <tr>
+        <td>Total Attempt</td>
+        <td>{{ cr|add:wr }}</td>
+    </tr>
+    <tr>
+        <td>
+            Correct
+        </td>
+        <td>{{ cr }}</td>
+    </tr>
+    <tr>
+        <td>Wrong</td>
+        <td>{{ wr }}</td>
+    </tr>
+    <tr>
+        <td>Question Letf</td>
+        <td>{{ left }}</td>
+    </tr>
+</table>
+</center>
+</body>
+</html>

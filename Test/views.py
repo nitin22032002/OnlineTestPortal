@@ -110,7 +110,7 @@ def userPaper(request):
     try:
         i_id=request.GET['i_id']
         b_id=request.GET['b_id']
-        user=User.objects.filter(institute_id=i_id,batch_code=b_id)
+        user=User.objects.filter(institute_id=i_id,batch_code=b_id,admin_id=request.session['user']['id'])
         if(len(user)==0):
             raise Exception("Invalid User")
         elif(not user[0].status):
@@ -120,6 +120,7 @@ def userPaper(request):
             content=[]
             for paper in papers:
                 status=Result.objects.filter(paper_id=paper.id,user_id=user[0].id)
+
                 if(len(status)>0):
                     status=True
                 else:
@@ -132,7 +133,13 @@ def userPaper(request):
 @credential_func
 def TestPaper(request):
     try:
-        return render(request,"testplace.html",{"id":request.GET['id']})
+        paper=Paper.objects.get(id=request.GET['id'])
+        user_id = User.objects.get(admin_id=request.session['user']['id'], institute_id=paper.institute_id,batch_code=paper.batch_code).id
+        print(user_id)
+        result=Result.objects.filter(paper_id=request.GET['id'],user_id=user_id)
+        if(len(result)==0):
+            return render(request,"testplace.html",{"id":request.GET['id'],"enddate":paper.test_end,"start":paper.test_start})
+        return HttpResponse("You Already Given The Test.....")
     except Exception as e:
         print(e)
         return HttpResponse("Server Error......")
@@ -142,12 +149,14 @@ def fetchQuestion(request):
         que=Question.objects.filter(paper_id=request.GET['id'])
         content=[]
         n=len(que)
+        total=0
         for question in que:
             question.time=int(question.time.minute)*60
+            total+=question.time
             content.append({"questionid":question.id,"questiontype":question.question_type,"marks":question.marks,"time":question.time,"question":question.question,"optiona":question.option_a,"optionb":question.option_b,"optionc":question.option_c,"optiond":question.option_d})
         que_list=list(range(0,n))
         random.shuffle(que_list)
-        return JsonResponse({"status":True,"que":content,"quelist":que_list})
+        return JsonResponse({"status":True,"que":content,"quelist":que_list,"total":total})
     except Exception as e:
         print(e)
         return JsonResponse({"status":False})
@@ -159,19 +168,50 @@ def submission(request):
         ans=data['ans']
         content=[]
         score=0
+        wr=0
+        cr=0
         for id in ans:
             que=Question.objects.get(id=int(id))
             l={"question":que.question,"type":que.question_type,"ans":que.answere,"mark":ans[id]}
             content.append(l)
             if(l['ans']==l['mark']):
                 score+=int(que.marks)
+                cr+=1
             elif(l['mark']!='notanswere'):
                 score-=1
-        request.session['result']={"que":content,"score":score}
+                wr+=1
+        result=Result()
+        result.paper_id=que.paper_id
+        result.marks_obtain=score
+        result.question_attempt=cr+wr
+        result.question_left=len(ans)-cr-wr
+        result.question_wrong=wr
+        paper=Paper.objects.get(id=result.paper_id)
+        result.user_id=User.objects.get(admin_id=request.session['user']['id'],institute_id=paper.institute_id,batch_code=paper.batch_code).id
+        result.save()
+        request.session['result']={"que":content,"score":score,"wr":wr,"cr":cr,"left":len(ans)-cr-wr}
         return JsonResponse({"status": True})
     except Exception as e:
         print(e)
         return JsonResponse({"status":False})
-
+@credential_func
 def testResultDiscription(request):
-    pass
+    try:
+        content=request.session['result']
+        del request.session['result']
+        return render(request,"testResultDiscription.html",content)
+    except Exception as e:
+        print(e)
+        return HttpResponse("Server Error.........")
+
+@credential_func
+def userResult(request):
+    try:
+        paper=Paper.objects.get(id=request.GET['id'])
+        user_id=User.objects.get(admin_id=request.session['user']['id'],institute_id=paper.institute_id,batch_code=paper.batch_code).id
+        result=Result.objects.get(user_id=user_id,paper_id=paper.id)
+        d={"paperid":result.paper_id,"name":paper.name,"questionleft":result.question_left,"questionwrong":result.question_wrong,"questionattempt":result.question_attempt,"questioncorrect":result.question_attempt-result.question_wrong,"marksobtain":result.marks_obtain,"total":paper.total_marks}
+        return render(request,"result.html",d)
+    except Exception as e:
+        print(e)
+        return HttpResponse("Server Error......")
