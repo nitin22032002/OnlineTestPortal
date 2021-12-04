@@ -5,8 +5,11 @@
     <title>User Registration</title>
     <link rel="stylesheet" type="text/css" href="/static/css/login.css">
 </head>
-<body style="height: 640px">
-<div class="card" style="height: 510px">
+<body >
+{% include "../Navbar.html" %}
+<div class="main" style="height: 580px">
+
+<div class="mycard" style="height: 510px">
     <div class="heading">
         User Registration
     </div>
@@ -35,7 +38,7 @@
             <input class="input-tag"id="contact" type="text" name="contact_number" placeholder="Contact Number" pattern="[0-9]{10}" required>
         </div>
         <center>
-            <input style="width: 80%;" class="submit-btn" type="submit" id="submitbtn" value="Register User">
+            <input style="width: 80%;" class="btn btn-primary submit-btn" type="submit" id="submitbtn" value="Register User">
         </center>
     </form>
     {% ifnotequal msg "" %}
@@ -43,6 +46,7 @@
             {{ msg }}
         </div>
     {% endifnotequal %}
+</div>
 </div>
 </body>
 {{ timer|json_script:'timer' }}

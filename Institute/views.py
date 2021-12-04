@@ -219,7 +219,7 @@ class Batch(View):
                 id=Institute.objects.get(admin_id=request.session['user']['id']).id
                 batches=Batches.objects.filter(institute_id=id).all()
                 for batch in batches:
-                    batch.institute_id=User.objects.filter(institute_id=id,batch_code=batch.batch_code).count()
+                    batch.institute_id=[User.objects.filter(institute_id=id,batch_code=batch.batch_code,status=True).count(),User.objects.filter(institute_id=id,batch_code=batch.batch_code,status=False).count()]
                 return render(request,"register/viewbatch.html",{"batches":batches})
             return HttpResponse("Invalid User")
         except Exception as e:

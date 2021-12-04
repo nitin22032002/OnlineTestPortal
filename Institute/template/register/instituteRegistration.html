@@ -6,8 +6,11 @@
     <title>Institute Registration</title>
     <link rel="stylesheet" type="text/css" href="/static/css/login.css">
 </head>
-<body style="height: 640px">
-<div class="card" style="height: 620px">
+<body>
+{% include "../Navbar.html" %}
+<div class="main" style="height: 590px">
+
+<div class="mycard" style="height: 555px;width:625px">
     <div class="heading">
         Institute Registration
     </div>
@@ -17,28 +20,36 @@
             Institute Name
         </div>
         <div>
-            <input type="text" name="name" class="input-tag" placeholder="Institute Name" required>
+            <input type="text" style="width: 90%" name="name" class="input-tag" placeholder="Institute Name" required>
         </div>
         <div class="input-heading">
             Address
         </div>
+
         <div>
-            <input type="text" class="input-tag" name="address" placeholder="Address" required>
+            <input type="text" style="width: 90%" class="input-tag" name="address" placeholder="Address" required>
         </div>
+        <div style="display: flex;flex-direction: row;align-items: center;justify-content: space-between">
+           <div>
         <div class="input-heading">
             Contact Number
         </div>
         <div>
             <input class="input-tag" type="text" name="contact_number" placeholder="Contact Number" pattern="[0-9]{10}" required>
         </div>
+           </div>
+            <div>
+
         <div class="input-heading">
             Institute Code
         </div>
         <div>
             <input class="input-tag" type="text" name="institute_code" placeholder="Institute Code" required>
         </div>
+            </div>
+        </div>
         <center>
-            <input style="width: 80%;" class="submit-btn" type="submit" value="Register Institute">
+            <input style="width: 80%;" class="btn btn-primary submit-btn" type="submit" value="Register Institute">
         </center>
     </form>
     {% ifnotequal msg "" %}
@@ -46,6 +57,7 @@
             {{ msg }}
         </div>
     {% endifnotequal %}
+</div>
 </div>
 </body>
 </html>

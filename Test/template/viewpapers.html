@@ -5,24 +5,26 @@
     <title>Test Paper's</title>
 </head>
 <body>
-<div class="main">
-    <table border="1" cellpadding="2" cellspacing="1">
-        <caption><h1>Paper's</h1></caption>
+{% include "./Navbar.html" %}
+<table class="table my-2 mx-2" style="width: 99%">
+  <thead>
     <tr>
-        <td>Paper Id</td>
-        <td>Paper Name</td>
-        <td>Batch Code</td>
-        <td>Number Of Question's</td>
-        <td>Date Start</td>
-        <td>Date End</td>
-        <td>Maximum Marks</td>
-        <td>Action</td>
+      <th scope="col">Paper Id</th>
+      <th scope="col">Paper Name</th>
+      <th scope="col">Batch Code</th>
+      <th scope="col">Number Of Question</th>
+      <th scope="col">Test Start</th>
+      <th scope="col">Test End</th>
+      <th scope="col">Maximum Marks</th>
+      <th scope="col">Action</th>
     </tr>
-        {% for paper in papers %}
+  </thead>
+  <tbody>
+   {% for paper in papers %}
         <tr>
-        <td>
+        <th>
             {{ paper.id }}
-        </td>
+        </th>
         <td>
             {{ paper.name }}
         </td>
@@ -46,7 +48,8 @@
         </td>
         </tr>
     {% endfor %}
-    </table>
-</div>
+  </tbody>
+</table>
 </body>
+
 </html>

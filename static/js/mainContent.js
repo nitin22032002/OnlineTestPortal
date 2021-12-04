@@ -1,5 +1,6 @@
 let search_status=document.querySelector("#search-status")
 let  table_body=document.querySelector("#table-body")
+
 async function handleClick(e){
     if(institute.value==="0" || batch.value==="0"){
         alert("Choose any batch or institute first")
@@ -11,15 +12,7 @@ async function handleClick(e){
             console.log(res)
         if(res.status){
             if(res["user_status"]){
-                s=`<tr>
-<td>Paper Id</td>
-<td>Paper Name</td>
-<td>Maximum Marks</td>
-<td>Number Of Question</td>
-<td>Test Start</td>
-<td>Test End</td>
-<td>Action</td>
-</tr>`
+                s=""
                 res['paper'].forEach((data)=>{
                     console.log(new Date(data.start))
                     s+=`<tr>
@@ -35,6 +28,7 @@ ${new Date(data.start)<=new Date() && new Date()<=new Date(data.end) && !data.st
 </tr>`
                 })
                 table_body.innerHTML=s;
+
             }
             else{
                 table_body.innerHTML=`<tr>

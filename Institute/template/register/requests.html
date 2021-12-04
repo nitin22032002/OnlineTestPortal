@@ -5,22 +5,25 @@
     <title>Request's</title>
 </head>
 <body>
-<div class="main">
-    <table border="1" cellpadding="2" cellspacing="1">
-        <caption><h1>Paper's</h1></caption>
+{% include "../Navbar.html" %}
+<table class="table my-2 mx-2" style="width: 99%">
+  <thead>
     <tr>
-        <td>User Id</td>
-        <td>Name</td>
-        <td>Batch Code</td>
-        <td>Contact Number</td>
-        <td>Verify Status</td>
-        <td>Action</td>
+
+      <th scope="col">#User Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Batch Code</th>
+      <th scope="col">Contact Number</th>
+      <th scope="col">Verify Action</th>
+      <th scope="col">Action</th>
     </tr>
-        {% for request in requests %}
+  </thead>
+  <tbody>
+    {% for request in requests %}
         <tr>
-        <td>
+        <th>
             {{ request.id }}
-        </td>
+        </th>
         <td>
             {{ request.admin_id }}
         </td>
@@ -42,7 +45,7 @@
         </td>
         </tr>
     {% endfor %}
-    </table>
-</div>
+  </tbody>
+</table>
 </body>
 </html>

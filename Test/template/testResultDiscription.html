@@ -5,53 +5,71 @@
     <title>Test Discription</title>
 </head>
 <body>
-<center>
-    <table border="1" cellpadding="5" cellspacing="5">
-        <caption>Test Discription</caption>
-        <tr>
-            <td>Question</td>
-            <td>Answere</td>
-            <td>Your Response</td>
-
-        </tr>
-        {% for data in que %}
+{% include "./Navbar.html" %}
+<table class="table my-2 mx-2" style="width: 99%">
+  <thead>
+    <tr>
+      <th scope="col">Question</th>
+      <th scope="col">Answer</th>
+      <th scope="col">Your Response</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+   {% for data in que %}
             <tr>
-            <td>
+            <th>
             {% ifequal data.type 2 %}
                 {{ data.question }}
                 {% else %}
-               <img src="/static/files/{{ data.question }}.jpg">
+               <img src="/static/files/{{ data.question }}.jpg" style="width: 350px;height: 200px">
             {% endifequal %}
-            </td>
-            <td>{{ data.ans }}</td>
-            <td>{{ data.mark }}</td>
+            </th>
+            <th>{{ data.ans }}</th>
+            {% ifequal data.mark "notanswere" %}
+            <th>-</th>
+                {% else %}
+                <th>{{ data.mark }}</th>
+            {% endifequal %}
+
+                {% ifequal data.mark data.ans %}
+                    <th style="color: green">Correct</th>
+                    {% else %}
+                    {% ifequal data.mark "notanswere" %}
+                        <th style="color: greenyellow">Not Attempt</th>
+                        {% else %}
+                         <th style="color: red">Wrong</th>
+                    {% endifequal %}
+                {% endifequal %}
+
             </tr>
         {% endfor %}
-    </table>
-<table border="1" cellpadding="5" cellspacing="5">
+  </tbody>
+<tfoot>
+<tr>
     <tr>
-        <td>Score</td>
-        <td>{{ score }}</td>
+        <th>Score</th>
+        <th>{{ score }}</th>
     </tr>
     <tr>
-        <td>Total Attempt</td>
-        <td>{{ cr|add:wr }}</td>
+        <th>Total Attempt</th>
+        <th>{{ cr|add:wr }}</th>
     </tr>
     <tr>
-        <td>
-            Correct
-        </td>
-        <td>{{ cr }}</td>
+        <th>
+          Question  Correct
+        </th>
+        <th>{{ cr }}</th>
     </tr>
     <tr>
-        <td>Wrong</td>
-        <td>{{ wr }}</td>
+        <th>Question Wrong</th>
+        <th>{{ wr }}</th>
     </tr>
     <tr>
-        <td>Question Letf</td>
-        <td>{{ left }}</td>
+        <th>Question Left</th>
+        <th>{{ left }}</th>
     </tr>
+</tfoot>
 </table>
-</center>
 </body>
 </html>

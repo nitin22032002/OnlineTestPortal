@@ -166,30 +166,34 @@ def submission(request):
     try:
         data=json.load(request)
         ans=data['ans']
+        questions=Question.objects.filter(paper_id=ans['paperid']).all()
         content=[]
         score=0
         wr=0
         cr=0
-        for id in ans:
-            que=Question.objects.get(id=int(id))
-            l={"question":que.question,"type":que.question_type,"ans":que.answere,"mark":ans[id]}
+        for que in questions:
+            if(str(que.id) in ans):
+                s = ans[str(que.id)]
+                if(que.answere==s):
+                    cr+=1
+                    score+=que.marks
+                else:
+                    wr+=1
+                    score-=1
+            else:
+                s="notanswere"
+            l = {"question": que.question, "type": que.question_type, "ans": que.answere, "mark": s}
             content.append(l)
-            if(l['ans']==l['mark']):
-                score+=int(que.marks)
-                cr+=1
-            elif(l['mark']!='notanswere'):
-                score-=1
-                wr+=1
         result=Result()
         result.paper_id=que.paper_id
         result.marks_obtain=score
         result.question_attempt=cr+wr
-        result.question_left=len(ans)-cr-wr
+        result.question_left=len(questions)-cr-wr
         result.question_wrong=wr
         paper=Paper.objects.get(id=result.paper_id)
         result.user_id=User.objects.get(admin_id=request.session['user']['id'],institute_id=paper.institute_id,batch_code=paper.batch_code).id
         result.save()
-        request.session['result']={"que":content,"score":score,"wr":wr,"cr":cr,"left":len(ans)-cr-wr}
+        request.session['result']={"que":content,"score":score,"wr":wr,"cr":cr,"left":len(questions)-cr-wr}
         return JsonResponse({"status": True})
     except Exception as e:
         print(e)

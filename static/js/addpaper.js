@@ -24,10 +24,11 @@ function handlePaper(e){
     uploadQuestion()
 }
 function uploadQuestion(){
-    let main=document.querySelector(".main")
+    let main=document.querySelector(".submain")
+    document.querySelector('.main').style.height="875px"
     document.body.style.height='845px'
-    document.querySelector('.card').style.height="840px"
-    document.querySelector('.card').style.width="40%"
+    document.querySelector('.mycard').style.height="865px"
+    document.querySelector('.mycard').style.width="40%"
     let s=`
 <div class="heading">Question ${i} Upload</div>
 <div class="input-heading">Question Type</div>
@@ -37,18 +38,23 @@ function uploadQuestion(){
                <option value="1">Picture</option>
          </select>
 </div>
+<div style="display: flex;justify-content: space-between;align-items: center">
+<div>
 <div class="input-heading">
            Marks
         </div>
         <div>
             <input type="number" class="input-tag" id="marks" placeholder="Question ${i} Marks">
         </div>
+        </div>
+        <div>
          <div class="input-heading">
             Duration
         </div>
         <div>
             <input type="time" value="00:00" min="00:01" max="00:05" class="input-tag" id="time" placeholder="Date Start">
         </div>
+        </div></div>
         <div class="input-heading">
             Question
         </div>
@@ -71,7 +77,7 @@ function uploadQuestion(){
             <input type="number" class="input-tag" id="ans" placeholder="Answere">
         </div>
 <center>
-            <input type="button" value="Next" class="submit-btn">
+            <input type="button" value=${total_que===String(i)?"Upload Test":"Next"} class="btn btn-primary submit-btn">
         </center>
 
        
@@ -137,9 +143,10 @@ async function addQuestions(){
         }
     }
     else{
+         i+=1;
     uploadQuestion()
     }
-        i+=1;
+
 
 }
 appendactionBtn(handlePaper);

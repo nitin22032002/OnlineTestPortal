@@ -4,39 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
 </head>
 <body>
-<form action="/authentication/auth/login" method="post">
-    {%csrf_token %}
-    <div class="card">
-        <div class="heading">
-            Login
-        </div>
-        <div class="input-heading">
-            Email Id
-        </div>
-        <div>
-            <input class="input-tag" type="email" name="emailid" placeholder="Email" required>
-        </div>
-        <div class="input-heading">
-            Password
-        </div>
-        <div>
-                <input class="input-tag" type="password" name="password" placeholder="Password" required>
-        </div>
-    <center >
-    <input class="submit-btn" type="submit" value="Login">
-    </center>
-        <div >
-    <a class="signup-link" href="/authentication/signup">If You Don't Have Account ? Signup</a>
-    </div>
+{% include "../Navbar.html" %}
+<div style="height: 60px">
+
     {% ifnotequal msg ""%}
-        <div class="error-msg">
-        {{ msg }}
-        </div>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{ msg }}</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
+</div>
     {% endifnotequal %}
+</div>
+<div class="container main" style="display: flex;justify-content: center;align-items: center;height: 465px;">
+  <div class="container" style="border: 1px solid black;width: 50%;padding: 20px;height: 55%">
+<form action="/authentication/auth/login" method="post">
+   {% csrf_token %}
+    <div class="row mb-3 my-4">
+    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="inputEmail3" name="emailid" placeholder="Email" required>
     </div>
+  </div>
+  <div class="row mb-3">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword3" name="password" placeholder="Password" required>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Sign in</button>
+
 </form>
+
+<a class="my-4" href="/authentication/signup">If You Don't Have Account ? Signup</a>
+</div>
+</div>
 </body>
 </html>

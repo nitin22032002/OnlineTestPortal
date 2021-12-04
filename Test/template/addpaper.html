@@ -5,10 +5,13 @@
     <title>Add Paper</title>
     <link rel="stylesheet" type="text/css" href="/static/css/login.css">
 </head>
-<body style="height: 700px">
+<body >
+{% include "./Navbar.html" %}
 {% csrf_token %}
-    <div class="card" style="height: 700px;">
-<div class="main" >
+<div class="main" style="height: 575px">
+
+    <div class="mycard" style="height: 545px;width: 700px">
+<div class="submain" style="width: 100%;padding: 3px" >
         <div class="heading">
             Upload Paper
         </div>
@@ -16,40 +19,52 @@
             Paper Name
         </div>
         <div>
-            <input type="text" class="input-tag" id="papername" placeholder="Name">
+            <input type="text"  style="width: 90%" class="input-tag" id="papername" placeholder="Name">
         </div>
+        <div style="display: flex;justify-content: space-between;align-items: center">
+
+     <div>
          <div class="input-heading">
            Number Of Question's
         </div>
         <div>
             <input type="number" class="input-tag" id="number" placeholder="Number Of Question's">
         </div>
-
-         <div class="input-heading">
-            Start Date and Time
-        </div>
-        <div>
-            <input type="datetime-local"  class="input-tag" id="time" placeholder="Date Start">
-        </div>
-<div class="input-heading">
-            End Date and Time
-        </div>
-        <div>
-            <input type="datetime-local"  class="input-tag" id="endtime" placeholder="Date End">
-        </div>
-         <div class="input-heading">
+     </div>
+            <div>
+                <div class="input-heading">
             Batch
         </div>
-        <div>
-           <select id="batch" style="width: 67%" class="input-tag"  title="batch">
+        <div style="width: 50%">
+           <select id="batch" style="width: 190%" class="input-tag"  title="batch">
                <option selected disabled value="0">--Select Batch--</option>
                {% for batch in batches %}
                <option value="{{ batch.batch_code }}">{{ batch.batch_name }}({{ batch.batch_code }})</option>
                {% endfor %}
            </select>
         </div>
+            </div>
+        </div>
+<div style="display: flex;justify-content: space-between;align-items: center">
+    <div>
+         <div class="input-heading">
+            Start Date and Time
+        </div>
+        <div>
+            <input type="datetime-local"  class="input-tag" id="time" placeholder="Date Start">
+        </div>
+    </div>
+<div>
+<div class="input-heading">
+            End Date and Time
+        </div>
+        <div>
+            <input type="datetime-local"  class="input-tag" id="endtime" placeholder="Date End">
+        </div>
+</div>
+</div>
         <center>
-            <input type="button" value="Next" class="submit-btn">
+            <input type="button" style="width: 90%"  value="Next" class="btn btn-primary submit-btn">
         </center>
 
 </div>
@@ -59,6 +74,7 @@
             </div>
 
     </div>
+</div>
 </body>
 <script src="/static/js/addpaper.js"></script>
 </html>

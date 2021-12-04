@@ -5,24 +5,31 @@
     <title>Batch's</title>
 </head>
 <body>
-<div class="main">
-    <table border="1" cellspacing="2" cellpadding="2">
-        <caption><h1>Batch's</h1></caption>
-        <tr>
-            <td>Batch Code</td>
-            <td>Batch Name</td>
-            <td>Total Register Student's</td>
-            <td>Action</td>
-        </tr>
-        {% for batch in batches %}
+{% include "../Navbar.html" %}
+<table class="table my-2 mx-2" style="width: 99%">
+  <thead>
+    <tr>
+      <th scope="col">Batch Code</th>
+      <th scope="col">Batch Name</th>
+      <th scope="col">Total Register Student</th>
+      <th scope="col">Total Verified Student</th>
+      <th scope="col">Pending Request</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for batch in batches %}
             <tr>
-            <td>{{ batch.batch_code }}</td>
+            <th>{{ batch.batch_code }}</th>
             <td>{{ batch.batch_name }}</td>
-            <td>{{ batch.institute_id }}</td>
+            <td>{{ batch.institute_id.0|add:batch.institute_id.1 }}</td>
+            <td>{{ batch.institute_id.0 }}</td>
+            <td>{{ batch.institute_id.1 }}</td>
             <td><a href="/register/delete/batch/?id={{ batch.batch_code }}">DELETE</a></td>
             </tr>
         {% endfor %}
-    </table>
-</div>
+  </tbody>
+</table>
 </body>
+
 </html>

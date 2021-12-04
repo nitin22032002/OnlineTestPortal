@@ -3,24 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Test-Start</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/testarea.css">
 </head>
 <body>
-{% csrf_token %}
-        <div>Total Time : <span id="totaltime"></span></div>
-    <div style="display: flex;justify-content: center;align-items: center;margin: 20px;">
+<div class="main">
 
-        <div style="border: 1px solid black">
-            <div >Timer : <span id="timer"></span></div>
-            <div id="question"></div>
-            <div style="display: flex;flex-direction: row;flex-wrap: wrap;width: 60%">
-                <span>A</span><input type="radio" name="ans"  class="option"><span id="option1"></span>
-                <span>B</span><input type="radio" name="ans" class="option"><span id="option2"></span>
-                <span>C</span><input type="radio" name="ans" class="option"><span id="option3"></span>
-                <span>D</span><input type="radio" name="ans" class="option"><span id="option4"></span>
-            </div>
-            <input type="button" value="Next" id="next-btn">
+<div class="question_area">
+    <div class="timer-area">
+        <div class="marks">
+            Marks : <span id="marks"></span>
+        </div>
+    <div class="net-timer">
+        <div>Test End After : <span id="totaltime"></span></div>
+    </div>
+        <div class="question-timer">
+            <div >Next Question After : <span id="timer"></span></div>
         </div>
     </div>
+    <div  class="question">
+
+<div id="question">
+
+</div>
+    </div>
+    <div class="options">
+       <div class="option-div"> <span>A</span><input type="radio" name="ans"  class="option"><span id="option1"></span></div>
+                <div class="option-div"><span>B</span><input type="radio" name="ans" class="option"><span id="option2"></span></div>
+                <div class="option-div"><span>C</span><input type="radio" name="ans" class="option"><span id="option3"></span></div>
+                <div class="option-div"><span>D</span><input type="radio" name="ans" class="option"><span id="option4"></span></div>
+    </div>
+    <div class="next-btn">
+        <input type="button" value="Next" id="next-btn" class="btn btn-primary">
+    </div>
+</div>
+{% csrf_token %}
+</div>
 </body>
 {{ id|json_script:"paperid" }}
 {{ enddate|json_script:"enddate" }}

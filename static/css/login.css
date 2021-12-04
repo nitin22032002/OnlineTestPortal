@@ -1,4 +1,4 @@
-body{
+.main{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -6,7 +6,7 @@ body{
     height:500px;
 
 }
-.card{
+.mycard{
     border: 1px solid black;
     width: 480px;
     height: 410px;

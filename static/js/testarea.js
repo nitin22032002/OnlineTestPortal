@@ -20,7 +20,7 @@ if(enddate<=new Date() || startdate>=new Date()){
 let questions_list;
 let show_list;
 let setTimer;
-let ans_were={}
+let ans_were={"paperid":paperid}
 let question_number=1;
 async function  fetchQuestions(){
     let res=await fetch(`/test/test/fetchquestion/?id=${paperid}`)
@@ -33,14 +33,16 @@ async function  fetchQuestions(){
             total_time_tag.innerHTML=`${parseInt(total_time/3600)} Hour ${parseInt(total_time/60)%60} Min ${total_time%60} Sec`
             total_time--;
             if(total_time===-1){
+
                 question_number=questions_list.length
                 next_btn.click()
             }
         },1000)
         setTimeout(()=>{
+
     question_number=questions_list.length
     next_btn.click()
-},new Date()-enddate)
+},enddate-new Date())
         setQuestion()
     }
     else{
@@ -63,11 +65,12 @@ function setQuestion(){
             next_btn.value = "Submit"
         }
     if(question_obj.questiontype===2){
-        question.innerHTML=`<h2>${question_obj.question}</h2><h4>Marks : ${question_obj.marks}</h4>`
+        question.innerHTML=`<h2>${question_obj.question}</h2>`
     }
     else{
-        question.innerHTML=`<img src="/static/files/${question_obj.question}.jpg">`
+        question.innerHTML=`<img style="width: 90%;height: 150px;margin-left: 40px" src="/static/files/${question_obj.question}.jpg">`
     }
+    document.querySelector('#marks').innerHTML=question_obj.marks
     option1.innerHTML=question_obj.optiona
     option2.innerHTML=question_obj.optionb
     option3.innerHTML=question_obj.optionc
@@ -76,20 +79,16 @@ function setQuestion(){
     setTimer=setQestionTimer(question_obj.time)
 }
 function  setAnswere(){
-var tem=0
     for(let ans in ans_options){
 
         if(ans_options[ans].checked){
-            tem=1
+
             ans_options[ans].checked=false
             ans_were[questions_list[question_number-1].questionid]=document.querySelector(`#option${parseInt(ans)+1}`).innerHTML
         }
 
     }
-    if(tem===0){
-            ans_were[questions_list[question_number-1].questionid]="notanswere"
 
-        }
 }
 async function handleClick(){
     setAnswere()

@@ -1,15 +1,16 @@
-{% extends "./homepage.html" %}
 <!DOCTYPE html>
 <html lang="en">
-{% block content %}
+
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
+    <link rel="stylesheet" href="/static/css/login.css">
 </head>
 <body>
+{% include "./Navbar.html" %}
 <div class="main">
 
-<div class="card">
+<div class="mycard">
     <div class="heading">
         Profile
     </div>
@@ -29,6 +30,8 @@
 
 </div>
 </div>
-{% endblock %}
+<script>
+    document.querySelector('#profile').classList.add("active")
+    </script>
 </body>
 </html>

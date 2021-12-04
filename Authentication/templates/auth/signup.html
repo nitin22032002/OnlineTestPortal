@@ -7,10 +7,29 @@
 <link rel="stylesheet" type="text/css" href="/static/css/login.css">
 </head>
 
-<body style="height:610px;">
+<body >
+{% include "../Navbar.html" %}
+
+
+    {% ifnotequal msg ""%}
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+
+        <strong class="me-auto">Online Test Portal </strong>
+
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        {{ msg }}
+      </div>
+    </div>
+    {% endifnotequal %}
+
+<div class="main" style="height:599px;">
+
 <form action="/authentication/auth/signup" method="post">
     {%csrf_token %}
-    <div class="card" style="height: 510px">
+    <div class="mycard" style="height: 580px">
         <div class="heading">
             SignUp
         </div>
@@ -33,17 +52,14 @@
                 <input class="input-tag" type="password" name="password" placeholder="Password" required>
         </div>
     <center>
-    <input class="submit-btn" type="submit" value="SignUp">
+    <input class="submit-btn btn btn-primary" type="submit" value="SignUp">
     </center>
         <div >
     <a class="signup-link" href="/authentication/login">If You Already Have Account ? Login</a>
     </div>
-    {% ifnotequal msg ""%}
-        <div class="error-msg">
-        {{ msg }}
-        </div>
-    {% endifnotequal %}
+
     </div>
 </form>
+</div>
 </body>
 </html>
